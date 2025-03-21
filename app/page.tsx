@@ -233,7 +233,7 @@ export default function BirthdayInvitation() {
         <Separator />
 
         <footer className="text-center text-sm text-muted-foreground">
-          <p>Questions? Call or text 555-123-4567</p>
+          {/* <p>Questions? Call or text 555-123-4567</p> */}
         </footer>
       </div>
     </div>
