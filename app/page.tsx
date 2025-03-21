@@ -1,53 +1,74 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Cake, Calendar, MapPin, Clock, Send, CheckCircle, Wine } from "lucide-react"
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Cake,
+  Calendar,
+  MapPin,
+  Clock,
+  Send,
+  CheckCircle,
+  Wine,
+} from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Separator } from "@/components/ui/separator"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { submitRSVP } from "@/app/actions"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { submitRSVP } from "@/app/actions";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   drink: z.enum(["beer", "whiskey", "rum", "vodka", "no-booze"], {
     required_error: "Please select your drink preference.",
   }),
-})
+});
 
 export default function BirthdayInvitation() {
-  const [submitted, setSubmitted] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      setIsSubmitting(true)
-      setError(null)
+      setIsSubmitting(true);
+      setError(null);
 
       // Submit to Google Sheets via server action
-      await submitRSVP(values)
+      await submitRSVP(values);
 
-      setSubmitted(true)
+      setSubmitted(true);
     } catch (err) {
-      setError("Failed to submit RSVP. Please try again later.")
-      console.error(err)
+      setError("Failed to submit RSVP. Please try again later.");
+      console.error(err);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 
@@ -55,13 +76,19 @@ export default function BirthdayInvitation() {
     <div className="min-h-screen bg-gradient-to-b from-primary/10 to-background p-4 flex flex-col items-center justify-center">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-primary">Birthday Celebration!</h1>
-          <p className="mt-2 text-lg text-muted-foreground">You're invited to my birthday party</p>
+          <h1 className="text-4xl font-bold tracking-tight text-primary">
+            Birthday Celebration!
+          </h1>
+          <p className="mt-2 text-lg text-muted-foreground">
+            You're invited to my birthday party
+          </p>
         </div>
 
         <Card className="w-full">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">Party Details</CardTitle>
+            <CardTitle className="text-2xl text-center">
+              Party Details
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3">
@@ -74,7 +101,17 @@ export default function BirthdayInvitation() {
             </div>
             <div className="flex items-center gap-3">
               <MapPin className="h-5 w-5 text-primary" />
-              <span>BITS Villa</span>
+              <span>
+                {" "}
+                <a
+                  href="https://maps.app.goo.gl/MNrTdJN4BqwLPMmp9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 underline"
+                >
+                  BITS Villa
+                </a>
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <Cake className="h-5 w-5 text-primary" />
@@ -91,13 +128,13 @@ export default function BirthdayInvitation() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p>
-              
-            </p>
+            <p></p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Food and drinks are covered! But if we hit my booze budget limit, it’s BYOB or group up to keep the party going!</li>
+              <li>
+                Food and drinks are covered! But if we hit my booze budget
+                limit, it’s BYOB or group up to keep the party going!
+              </li>
               {/* <li>Alocoholic beverages could be limited, pool and bring your own once my budget is exhausted</li> */}
-             
             </ul>
           </CardContent>
         </Card>
@@ -117,7 +154,10 @@ export default function BirthdayInvitation() {
             </CardHeader>
             <CardContent>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-6"
+                >
                   <FormField
                     control={form.control}
                     name="name"
@@ -148,13 +188,17 @@ export default function BirthdayInvitation() {
                               <FormControl>
                                 <RadioGroupItem value="beer" />
                               </FormControl>
-                              <FormLabel className="font-normal">Beer</FormLabel>
+                              <FormLabel className="font-normal">
+                                Beer
+                              </FormLabel>
                             </FormItem>
                             <FormItem className="flex items-center space-x-3 space-y-0">
                               <FormControl>
                                 <RadioGroupItem value="whiskey" />
                               </FormControl>
-                              <FormLabel className="font-normal">Whiskey</FormLabel>
+                              <FormLabel className="font-normal">
+                                Whiskey
+                              </FormLabel>
                             </FormItem>
                             <FormItem className="flex items-center space-x-3 space-y-0">
                               <FormControl>
@@ -166,13 +210,17 @@ export default function BirthdayInvitation() {
                               <FormControl>
                                 <RadioGroupItem value="vodka" />
                               </FormControl>
-                              <FormLabel className="font-normal">Vodka</FormLabel>
+                              <FormLabel className="font-normal">
+                                Vodka
+                              </FormLabel>
                             </FormItem>
                             <FormItem className="flex items-center space-x-3 space-y-0">
                               <FormControl>
                                 <RadioGroupItem value="no-booze" />
                               </FormControl>
-                              <FormLabel className="font-normal">No booze for me</FormLabel>
+                              <FormLabel className="font-normal">
+                                No booze for me
+                              </FormLabel>
                             </FormItem>
                           </RadioGroup>
                         </FormControl>
@@ -181,7 +229,11 @@ export default function BirthdayInvitation() {
                     )}
                   />
 
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? (
                       <span className="flex items-center">
                         <svg
@@ -219,12 +271,16 @@ export default function BirthdayInvitation() {
         ) : (
           <Card>
             <CardHeader>
-              <CardTitle className="text-center">Thanks for your RSVP!</CardTitle>
+              <CardTitle className="text-center">
+                Thanks for your RSVP!
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <div className="flex flex-col items-center justify-center py-6">
                 <CheckCircle className="h-16 w-16 text-primary mb-4" />
-                <p className="text-lg">Looking forward to celebrating with you!</p>
+                <p className="text-lg">
+                  Looking forward to celebrating with you!
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -237,6 +293,5 @@ export default function BirthdayInvitation() {
         </footer>
       </div>
     </div>
-  )
+  );
 }
-
