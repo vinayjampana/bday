@@ -66,11 +66,11 @@ export default function BirthdayInvitation() {
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3">
               <Calendar className="h-5 w-5 text-primary" />
-              <span>Saturday, March 21st, 2025</span>
+              <span>Saturday, March 22nd, 2025</span>
             </div>
             <div className="flex items-center gap-3">
               <Clock className="h-5 w-5 text-primary" />
-              <span>8:00 PM onwards</span>
+              <span>7:00 PM onwards</span>
             </div>
             <div className="flex items-center gap-3">
               <MapPin className="h-5 w-5 text-primary" />
@@ -87,18 +87,17 @@ export default function BirthdayInvitation() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Wine className="h-5 w-5 text-primary" />
-              <span>BYOB Instructions</span>
+              <span>Note</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p>
-              While we'll provide the drinks you select in your RSVP, feel free to bring your favorite bottle to share!
+              
             </p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Mixers and ice will be provided</li>
-              <li>Label your bottles if you want to keep track of them</li>
-              <li>Designated drivers will be arranged for those who need it</li>
-              <li>Non-alcoholic options will also be available</li>
+              <li>Food and drinks are covered! But if we hit my booze budget limit, it’s BYOB or group up to keep the party going!</li>
+              {/* <li>Alocoholic beverages could be limited, pool and bring your own once my budget is exhausted</li> */}
+             
             </ul>
           </CardContent>
         </Card>
@@ -168,6 +167,12 @@ export default function BirthdayInvitation() {
                                 <RadioGroupItem value="vodka" />
                               </FormControl>
                               <FormLabel className="font-normal">Vodka</FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="no-booze" />
+                              </FormControl>
+                              <FormLabel className="font-normal">No booze for me</FormLabel>
                             </FormItem>
                           </RadioGroup>
                         </FormControl>
