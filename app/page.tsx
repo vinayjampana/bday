@@ -17,7 +17,7 @@ import { submitRSVP } from "@/app/actions"
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  drink: z.enum(["beer", "whiskey", "rum", "vodka"], {
+  drink: z.enum(["beer", "whiskey", "rum", "vodka", "no-booze"], {
     required_error: "Please select your drink preference.",
   }),
 })
